@@ -7,6 +7,7 @@ import os
 import unittest
 
 import opensim as osim
+import shutil
 
 test_dir = os.path.join(os.path.dirname(os.path.abspath(osim.__file__)),
                         'tests')
@@ -17,6 +18,11 @@ osim.Model.setDebugLevel(0)
 class TestBasics(unittest.TestCase):
     def test_version(self):
         print(osim.__version__)
+
+    def test_open_model_with_non_ascii_name(self):
+        shutil.copy(os.path.join(test_dir, "arm26.osim"),os.path.join(test_dir, "arm26ñ.osim"))
+        model = osim.Model(os.path.join(test_dir, "arm26ñ.osim"))
+            
 
     def test_muscle_helper_classes(self):
         # This test exists because some classes that Thelen2003Muscle used were
